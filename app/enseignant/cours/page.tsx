@@ -19,8 +19,8 @@ export  default function CoursPage () {
                         className="object-contain"
                     />
                 </div>
-                <button type="button" onClick={() => route.back()} >{<ArrowLeftIcon width={30} height={30}/>}</button>
             </div>
+            <button type="button" onClick={() => route.back()} >{<ArrowLeftIcon width={30} height={30}/>}</button>
             <div className="lg:grid lg:grid-cols-2 md:flex md:flex-row lg:items-center md:items-center">
                 <div className="relative w-full max-w-md mx-auto aspect-square lg:mr-auto md:mr-auto lg:ml-0 md:ml-0">
                     <Image 
