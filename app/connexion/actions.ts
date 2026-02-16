@@ -1,7 +1,6 @@
 "use server"
 
 import { redirect } from "next/navigation";
-import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
 
 
@@ -19,8 +18,14 @@ export  async function login(formData: FormData){
         return {error: "Email ou mot de passe incorrect."};
     }
 
-    revalidatePath('/', 'layout');
-    redirect("/etudiant")
+    const { data: roles  } = await supabase.rpc("get_user_role");
+
+    if(roles.includes("etudiant")) {
+        redirect("/etudiant");
+    }
+    if (roles.includes("enseignant")) {
+        redirect("/enseignant");
+    }
 }
 
 export async function SignUp(formData: FormData){
@@ -37,6 +42,5 @@ export async function SignUp(formData: FormData){
         redirect('/erreur')
     }
 
-    revalidatePath('/','layout')
     redirect("etudiant")
 }
