@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { Eye, EyeOff } from "lucide-react";
 import toast from "react-hot-toast";
 import Link from "next/link";
@@ -10,12 +11,15 @@ export const LoginForm = ({action}: {action: any}) => {
     const [password, setPassword] = useState<string>("");
 
     const [isVisible, setIsVisible] = useState<boolean>(false);
+    const router = useRouter();
 
     async function handleSubmit(formData: FormData){
-        const result = await action(formData);
-        if(result?.error){
-            toast.error("Email ou mot de passe incorrect.")
-        }
+//        const result = await action(formData);
+//        if(result?.error){
+//            toast.error("Email ou mot de passe incorrect.")
+//        }
+        router.push("/etudiant");
+
     }
 
     return (
@@ -25,7 +29,7 @@ export const LoginForm = ({action}: {action: any}) => {
                 type="email"
                 id="email"
                 name="email"
-                placeholder="alex@exemple.com"
+                placeholder="astra@exemple.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="absolute top-48/100 w-xs lg:w-sm md:w-2xs lg:h-12 h-12 md:h-10 bg-black/70 rounded-xl px-3 lg:left-63/100 md:left-53/100 lg:-translate-x-1/2"
