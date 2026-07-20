@@ -1,31 +1,48 @@
-import { LoginForm } from "./loginForm"
-import { login } from "./actions"
-import Image from "next/image"
+import { LoginForm } from "./loginForm";
+import { login } from "./actions";
+import Image from "next/image";
 
-export default function ConnexionPage(){
-    
+export default function ConnexionPage() {
     return (
-        <div className="relative overflow-hidden min-h-dvh flex flex-col p-6 gap-8 text-white bg-[#610b893f]">
-            <div className="absolute -left-40 -top-8 w-xs aspect-square rounded-full bg-black/70 lg:hidden md:hidden"></div>
-            <div className="flex flex-row pl-6 mx-auto">
-                <div className="w-md mr-0 ml-auto order-2 h-screen max-h-fit lg:w-xl md:w-xs lg:bg-black/70 md:bg-black/70 rounded-2xl">
-                    <h1 className="absolute left-1/2 -translate-x-1/2 lg:left-57/100 md:left-7/10 lg:translate-0 top-1/4 text-4xl lg:text-4xl md:text-3xl text-center font-bold">Connexion</h1>
-                   <LoginForm action={login} />
-                </div>
-                <div className="hidden lg:block md:block w-xs aspect-square pt-8 mr-6">
-                    <div className="relative lg:w-2xs md:w-40 aspect-square my-auto">
-                        <Image
-                            src="/images/udsn-logo.png" 
-                            alt="Logo" 
-                            fill
-                            className="object-containt"
-                        />
+        <main className="relative min-h-dvh overflow-hidden bg-[#610B894A] text-white">
+            <div className="absolute -left-20 -top-20 h-48 w-48 rounded-full bg-black/40 blur-sm lg:hidden" />
+            <div className="absolute -bottom-16 -right-10 h-40 w-40 rounded-full bg-black/40 blur-sm lg:hidden" />
+
+            <section className="relative z-10 flex min-h-dvh flex-col justify-end px-6 pb-12 pt-16 lg:hidden">
+                <div className="mb-8">
+                    <div className="mb-5 flex items-center gap-3">
+                        <div className="relative h-12 w-12">
+                            <Image src="/images/udsn-logo.png" alt="Logo UDSN" fill className="object-contain" />
+                        </div>
+                        <div>
+                            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-white/80">UDSN</p>
+                            <p className="text-xs text-white/70">Espace enseignant - étudiant</p>
+                        </div>
                     </div>
-                    <p className="hidden lg:block md:block lg:text-xl md:text-xs font-bold pt-6">Bienvenu sur l’espace Enseignant - Etudiant de l’université Denis Sassous N’GUESSO</p>
+                    <h1 className="text-3xl font-bold">Connexion</h1>
+                    <p className="mt-2 text-sm text-white/80">Accédez à votre espace de travail</p>
                 </div>
-                {/**/}
-            </div>
-            <div className="absolute -right-30  -bottom-40 w-2xs aspect-square rounded-full bg-black/70 lg:hidden md:hidden"></div>
-        </div>
-    )
+
+                <LoginForm action={login} />
+            </section>
+
+            <section className="hidden min-h-dvh lg:flex">
+                <div className="flex w-1/2 flex-col items-center justify-center px-16 py-16">
+                    <div className="relative mb-12 h-72 w-72">
+                        <Image src="/images/udsn-logo.png" alt="Logo UDSN" fill className="object-contain" />
+                    </div>
+                    <h1 className="text-3xl font-bold leading-tight text-center max-w-sm">
+                        Bienvenu sur l'espace Enseignant - Etudiant de l'université Denis Sassous N'GUESSO
+                    </h1>
+                </div>
+
+                <div className="flex w-1/2 items-center justify-center px-16 py-16">
+                    <div className="w-full max-w-md rounded-[2rem] border border-white/20 bg-[#2d0a44]/90 p-8 shadow-2xl shadow-black/20">
+                        <h2 className="mb-8 text-center text-2xl font-semibold">Connexion</h2>
+                        <LoginForm action={login} />
+                    </div>
+                </div>
+            </section>
+        </main>
+    );
 }
