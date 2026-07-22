@@ -21,7 +21,7 @@ export const LoginForm = ({action}: {action: any}) => {
 
         // TODO: remplacer par l'appel au nouveau backend, puis rediriger
         // selon le rôle renvoyé (etudiant / enseignant)
-        router.push("/etudiant");
+        router.push("/etudiant/scanner");
     }
 
     return (
@@ -70,8 +70,8 @@ export const LoginForm = ({action}: {action: any}) => {
             </button>
 
             <div className="flex items-center justify-between text-xs text-white/70">
-                <Link href="">Mot de passe oublié ?</Link>
                 <Link href="">Pas de compte ?</Link>
+                <Link href=""> </Link>
             </div>
         </form>
     )
