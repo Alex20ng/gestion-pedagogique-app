@@ -4,8 +4,8 @@ import Image from "next/image"
 
 export  default function MenuEnseignantPage () {
     return (
-        <div className="min-h-dvh overflow-hidden flex flex-col p-6 bg-[#610b893f]">
-            <div className="mb-auto lg:flex md:flex">
+        <div className="min-h-dvh overflow-hidden flex flex-col gap-8 p-6 bg-[#610b893f]">
+            <div className="lg:flex md:flex">
                 <div className="hidden lg:block md:block relative w-28 max-w-xs aspect-square mr-auto">
                     <Image 
                         src="/images/udsn-logo.png"
