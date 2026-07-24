@@ -7,8 +7,8 @@ import {
   Home,
   Menu,
   Save,
-  ShieldCheck,
 } from "lucide-react";
+import Image from "next/image";
 import styles from "./emploi-du-temps.module.css";
 
 const teachers = ["Sélectionner un enseignant", "M. Mabirou", "Dr Ngoubou", "Dr Eyogo", "Dr Mavoungou"];
@@ -73,8 +73,15 @@ export default function EmploiDuTempsPage() {
       <section className={styles.appFrame} aria-label="Interface emploi du temps">
         <aside className={styles.sidebar} aria-label="Navigation principale">
           <div className={styles.brand}>
-            <div className={styles.brandBadge} aria-hidden="true">
-              <ShieldCheck size={28} strokeWidth={1.7} />
+            <div className={styles.brandBadge}>
+              <Image
+                src="/images/logo_UDSN.png"
+                alt="Logo Université Denis Sassou-N'Guesso"
+                width={54}
+                height={62}
+                className={styles.brandLogo}
+                priority
+              />
             </div>
             <div className={styles.brandText}>
               <strong>Gestion des</strong>
@@ -109,9 +116,14 @@ export default function EmploiDuTempsPage() {
               <h1>Emploi du temps</h1>
             </div>
 
-            <div className={styles.schoolCrest} aria-label="Logo université">
-              <ShieldCheck size={28} strokeWidth={1.8} />
-            </div>
+            <Image
+              src="/images/logo_UDSN.png"
+              alt="Logo Université Denis Sassou-N'Guesso"
+              width={48}
+              height={56}
+              className={styles.schoolCrest}
+              priority
+            />
           </header>
 
           <section className={styles.formPanel} aria-label="Ajouter un emploi du temps">
@@ -148,7 +160,7 @@ export default function EmploiDuTempsPage() {
                 <div className={styles.gridSpacer} aria-hidden="true" />
                 <TimeField label="Heure de fin" required />
 
-                <SelectField label="Semetre" options={semesters} required className={styles.semesterField} />
+                <SelectField label="Semestre" options={semesters} required className={styles.semesterField} />
               </div>
             </form>
 
