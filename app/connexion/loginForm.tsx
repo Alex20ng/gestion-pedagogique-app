@@ -13,7 +13,7 @@ export const LoginForm = ({action}: {action: any}) => {
     const router = useRouter();
 
     async function handleSubmit(formData: FormData){
-        // --- Logique Supabase désactivée temporairement (remplacement du backend en cours) ---
+        //  Logique Supabase désactivée temporairement 
         // const result = await action(formData);
         // if(result?.error){
         //     toast.error("Email ou mot de passe incorrect.")
@@ -21,7 +21,7 @@ export const LoginForm = ({action}: {action: any}) => {
 
         // TODO: remplacer par l'appel au nouveau backend, puis rediriger
         // selon le rôle renvoyé (etudiant / enseignant)
-        router.push("/etudiant/scanner");
+        router.push("/enseignant/qr");
     }
 
     return (

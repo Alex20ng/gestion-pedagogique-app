@@ -22,10 +22,10 @@ export  async function login(formData: FormData){
 //    const { data: roles  } = await supabase.rpc("get_user_role");
 
 //    if(roles.includes("etudiant")) {
-//        redirect("/etudiant");
+//        redirect("/etudiant/scanner");
 //    }
 //    if (roles.includes("enseignant")) {
-//        redirect("/enseignant");
+//        redirect("/enseignant/qr");
 //    }
 }
 
