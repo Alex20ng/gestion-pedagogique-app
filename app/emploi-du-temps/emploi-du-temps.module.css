@@ -1,0 +1,503 @@
+.page {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: #202020;
+  color: #ffffff;
+}
+
+.appFrame {
+  width: min(100%, 1088px);
+  min-height: 870px;
+  display: grid;
+  grid-template-columns: 204px minmax(0, 1fr);
+  overflow: hidden;
+  background: #2b003d;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.35);
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  background: #2a003d;
+  border-right: 1px solid rgba(0, 0, 0, 0.35);
+}
+
+.brand {
+  min-height: 88px;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 18px 16px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.32);
+}
+
+.brandBadge {
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  color: #ffffff;
+  border: 1.5px solid rgba(255, 255, 255, 0.86);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.brandText {
+  display: grid;
+  gap: 1px;
+  font-size: 12px;
+  line-height: 1.08;
+  color: #ffffff;
+}
+
+.brandText strong,
+.brandText span {
+  font-weight: 700;
+}
+
+.menuTitle {
+  padding: 12px 8px 8px;
+  font-size: 12px;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.nav {
+  display: grid;
+  gap: 12px;
+  padding: 12px 10px;
+}
+
+.navItem {
+  min-height: 42px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 0 10px;
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 700;
+  transition:
+    background 160ms ease,
+    transform 160ms ease;
+}
+
+.navItem:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.active {
+  background: rgba(175, 152, 196, 0.72);
+}
+
+.content {
+  min-width: 0;
+  background: #310048;
+}
+
+.topbar {
+  height: 88px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 18px 0 16px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.28);
+}
+
+.titleGroup {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  min-width: 0;
+}
+
+.iconButton {
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  color: #ffffff;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+
+.topbar h1 {
+  margin: 0;
+  font-size: 25px;
+  line-height: 1;
+  color: #ffffff;
+  font-weight: 800;
+  letter-spacing: 0;
+}
+
+.schoolCrest {
+  width: 44px;
+  height: 52px;
+  display: grid;
+  place-items: center;
+  color: #13540f;
+  background:
+    linear-gradient(#ffe856 0 0) center / 78% 84% no-repeat,
+    #ffffff;
+  border-radius: 7px;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.92);
+}
+
+.formPanel {
+  width: min(100% - 44px, 782px);
+  margin: 36px auto 24px;
+  padding: 17px 21px 38px;
+  border-radius: 42px;
+  background: linear-gradient(180deg, #921dda 0%, #8a18d4 100%);
+  box-shadow: 0 22px 44px rgba(0, 0, 0, 0.16);
+}
+
+.panelHeader {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  color: #ffffff;
+}
+
+.backButton {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  padding: 0;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.08);
+  border: 2px solid rgba(255, 255, 255, 0.88);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.panelHeader h2 {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.15;
+  color: #ffffff;
+  font-weight: 800;
+  letter-spacing: 0;
+}
+
+.panelHeader p {
+  margin: 3px 0 0;
+  color: rgba(255, 255, 255, 0.84);
+  font-size: 10px;
+  line-height: 1.25;
+}
+
+.separator {
+  height: 1px;
+  margin: 7px 0 0;
+  background: rgba(255, 255, 255, 0.45);
+}
+
+.formCard {
+  margin-top: 0;
+  padding: 35px 28px 21px;
+  border-radius: 39px;
+  background: rgba(190, 88, 220, 0.4);
+}
+
+.cardTitle {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 28px;
+  color: #ffffff;
+}
+
+.calendarIcon {
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  border: 2px solid rgba(255, 255, 255, 0.85);
+  border-radius: 8px;
+}
+
+.cardTitle h3 {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1;
+  color: #ffffff;
+  font-weight: 800;
+  letter-spacing: 0;
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  column-gap: 30px;
+  row-gap: 26px;
+}
+
+.field {
+  min-width: 0;
+  display: grid;
+  gap: 8px;
+  color: #ffffff;
+}
+
+.label {
+  color: #ffffff;
+  font-size: 12px;
+  line-height: 1;
+  font-weight: 800;
+}
+
+.required {
+  margin-left: 2px;
+  color: #ff6b38;
+}
+
+.selectWrap,
+.timeWrap {
+  position: relative;
+  display: block;
+  min-width: 0;
+}
+
+.control,
+.timeInput {
+  width: 100%;
+  height: 53px;
+  color: #ffffff;
+  background: rgba(199, 126, 229, 0.78);
+  border: 0;
+  border-radius: 13px;
+  outline: 0;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+
+.control {
+  appearance: none;
+  padding: 0 34px 0 12px;
+}
+
+.control option {
+  color: #2b003d;
+  background: #ffffff;
+}
+
+.chevron {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  width: 18px;
+  height: 18px;
+  color: #ffffff;
+  pointer-events: none;
+  transform: translateY(-50%);
+}
+
+.timeWrap {
+  display: flex;
+  align-items: center;
+  height: 53px;
+  padding: 0 12px;
+  gap: 10px;
+  background: rgba(199, 126, 229, 0.78);
+  border-radius: 13px;
+}
+
+.timeIcon {
+  width: 21px;
+  height: 21px;
+  flex: 0 0 auto;
+  color: rgba(255, 255, 255, 0.86);
+}
+
+.timeInput {
+  height: auto;
+  min-width: 0;
+  padding: 0;
+  background: transparent;
+  border-radius: 0;
+}
+
+.timeInput::placeholder {
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.gridSpacer {
+  display: block;
+}
+
+.semesterField {
+  grid-column: 1 / -1;
+  width: min(100%, 604px);
+  justify-self: center;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 38px;
+  padding: 25px 55px 0 0;
+}
+
+.cancelButton,
+.saveButton {
+  height: 34px;
+  border: 0;
+  border-radius: 0;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.cancelButton {
+  min-width: 107px;
+  background: rgba(203, 164, 218, 0.86);
+}
+
+.saveButton {
+  min-width: 126px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  background: #061ed6;
+}
+
+@media (max-width: 920px) {
+  .page {
+    padding: 0;
+    place-items: stretch;
+  }
+
+  .appFrame {
+    width: 100%;
+    min-height: 100vh;
+    grid-template-columns: 170px minmax(0, 1fr);
+  }
+
+  .formPanel {
+    width: min(100% - 24px, 760px);
+  }
+
+  .formGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .gridSpacer {
+    display: none;
+  }
+
+  .semesterField {
+    justify-self: stretch;
+  }
+}
+
+@media (max-width: 700px) {
+  .appFrame {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    border-right: 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.35);
+  }
+
+  .brand {
+    min-height: auto;
+  }
+
+  .nav {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .navItem {
+    justify-content: center;
+    padding: 8px;
+    min-height: 48px;
+    text-align: center;
+  }
+
+  .topbar {
+    height: 76px;
+  }
+
+  .titleGroup {
+    gap: 14px;
+  }
+
+  .topbar h1 {
+    font-size: 21px;
+  }
+
+  .formPanel {
+    margin-top: 20px;
+    border-radius: 30px;
+  }
+
+  .formCard {
+    border-radius: 28px;
+    padding: 26px 18px 20px;
+  }
+
+  .formGrid {
+    grid-template-columns: 1fr;
+    row-gap: 18px;
+  }
+
+  .actions {
+    padding-right: 0;
+    gap: 12px;
+  }
+}
+
+@media (max-width: 460px) {
+  .page {
+    background: #310048;
+  }
+
+  .nav {
+    grid-template-columns: 1fr;
+  }
+
+  .navItem {
+    justify-content: flex-start;
+  }
+
+  .schoolCrest {
+    display: none;
+  }
+
+  .formPanel {
+    width: calc(100% - 16px);
+    padding-inline: 12px;
+  }
+
+  .panelHeader h2 {
+    font-size: 14px;
+  }
+
+  .cardTitle h3 {
+    font-size: 16px;
+  }
+
+  .actions {
+    justify-content: stretch;
+    flex-direction: column-reverse;
+  }
+
+  .cancelButton,
+  .saveButton {
+    width: 100%;
+  }
+}
