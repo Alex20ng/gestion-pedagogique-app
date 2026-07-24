@@ -26,7 +26,6 @@ export  default function MenuEnseignantPage () {
                     />
                 </div>
                 <div className="flex flex-col gap-6 order-2 lg:order-1 md:order-1">
-                    <Link href="/enseignant/cours" className="w-full h-fit bg-black/70 rounded-xl text-white text-xl p-5">Cours</Link>
                     <Link href="/enseignant/qr" className="w-full h-fit bg-black/70 rounded-xl text-white text-xl p-5">Generer code QR</Link>
                 </div>
             </div>

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { ArrowLeftIcon, CheckCircle2 } from "lucide-react";
+import { ArrowLeftIcon } from "lucide-react";
 import { QRCodeSVG } from "qrcode.react";
 import { generateSessionCode } from "./action";
 
@@ -11,7 +11,11 @@ export default function QRCode() {
     const [sessionId, setSessionId] = useState<string | null>(null);
 
     useEffect(() => {
-        generateSessionCode().then(({ sessionId }) => setSessionId(sessionId));
+        generateSessionCode().then((result) => {
+            if (result?.sessionId) {
+                setSessionId(result.sessionId);
+            }
+        });
     }, []);
 
     return (
@@ -30,14 +34,15 @@ export default function QRCode() {
                     {sessionId ? (
                         <QRCodeSVG value={sessionId} className="h-full w-full" />
                     ) : (
-                        <p className="text-center text-sm text-black/60">Génération en cours…</p>
+                        <p className="text-center text-sm text-black/60">
+                            En attente de connexion au backend…
+                        </p>
                     )}
                 </div>
 
-                <div className="flex items-center justify-center gap-3 text-center">
-                    <CheckCircle2 className="h-7 w-7 flex-shrink-0 text-green-400" />
-                    <h1 className="text-lg font-semibold lg:text-xl">Code QR généré avec succès</h1>
-                </div>
+                <h1 className="text-center text-lg font-semibold lg:text-xl">
+                    Génération du code QR
+                </h1>
             </div>
         </div>
     )

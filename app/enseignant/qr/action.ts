@@ -1,16 +1,8 @@
 "use server"
 
-// TODO: fois le backend branché, cette fonction  devrais  créer une vraie
-// session de présence côté serveur (cours + créneau + horodatage) et
-// retourner un identifiant unique à encoder dans le QR Code, au lieu
-// d'un identifiant généré localement.
+// TODO: le backend générera ici l'identifiant de session (cours + créneau + horodatage). 
+//Cette fonction sera complétée lors de l'intégration du nouveau backend.
 
 export async function generateSessionCode() {
-  const sessionId = crypto.randomUUID();
-  const timestamp = Date.now();
-
-  return {
-    sessionId,
-    timestamp,
-  };
+  // À compléter par le backend
 }
