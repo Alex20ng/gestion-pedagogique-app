@@ -1,4 +1,4 @@
-import {
+﻿import {
   ArrowLeft,
   CalendarDays,
   ChevronDown,
@@ -11,12 +11,12 @@ import {
 import Image from "next/image";
 
 const teachers = ["Sélectionner un enseignant", "M. Mabirou", "Dr Ngoubou", "Dr Eyogo", "Dr Mavoungou"];
-const classes = ["Sélectionner une classe", "Licence 1", "Licence 2", "Licence 3", "Master 1"];
+const classes = ["Sélectionner une classe", "Licence 1", "Licence 2", "Licence 3", "Master 1", "Master 2"];
 const courses = ["Sélectionner un cours", "Algorithme complexe", "Base de données", "Réseaux informatique", "Analyse I"];
-const subjects = ["Sélectionner une matière", "Algorithmique", "Base de données", "Réseaux", "Analyse"];
+const subjects = ["Sélectionner une matière", "Algorithme complexe", "Base de données", "Réseaux", "Analyse"];
 const rooms = ["Sélectionner une salle", "E45", "E40", "E52", "B12"];
 const days = ["Sélectionner un jour", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
-const semesters = ["Sélectionner un semestre", "Semestre 1", "Semestre 2"];
+const semesters = ["Sélectionner un semestre", "Semestre 1", "Semestre 2", "semestre 3", "semestre 4", "semestre 5", "semestre 6"];
 
 const navItems = [
   { label: "Accueil", icon: Home, active: false },
@@ -95,11 +95,11 @@ export default function EmploiDuTempsPage() {
           <div className="flex min-h-[88px] items-center gap-[11px] border-b border-black/30 px-4 py-[18px] max-[700px]:min-h-0">
             <div className="grid h-[62px] w-[54px] shrink-0 place-items-center overflow-hidden">
               <Image
-                src="/images/logo_UDSN.png"
-                alt="Logo Université Denis Sassou-N'Guesso"
+                src="/images/retard-clock.png"
+                alt="IcÃ´ne gestion des retards"
                 width={54}
-                height={62}
-                className="h-full w-full object-contain"
+                height={54}
+                className="h-[46px] w-[46px] object-contain"
                 priority
               />
             </div>
@@ -144,7 +144,7 @@ export default function EmploiDuTempsPage() {
 
             <Image
               src="/images/logo_UDSN.png"
-              alt="Logo Université Denis Sassou-N'Guesso"
+              alt="Logo UniversitÃ© Denis Sassou-N'Guesso"
               width={48}
               height={56}
               className="h-14 w-12 shrink-0 object-contain max-[460px]:hidden"
@@ -227,5 +227,7 @@ export default function EmploiDuTempsPage() {
     </main>
   );
 }
+
+
 
 
