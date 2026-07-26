@@ -21,9 +21,13 @@ export const LoginForm = ({action}: {action: any}) => {
 
         // TODO: remplacer par l'appel au nouveau backend, puis rediriger
         // selon le rôle renvoyé (etudiant / enseignant)
+<<<<<<< HEAD
         toast.success("Connexion réussie")
-        router.push("/etudiant/scanner");
+        router.push("emploi-du-temps");
 
+=======
+        router.push("/emploi-du-temps");
+>>>>>>> 01831321ba99324c58907fdeb9dfb160990dbed5
     }
 
     return (
