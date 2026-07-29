@@ -2,9 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import {
-  ArrowLeft,
   CalendarDays,
-  ChevronDown,
   Clock3,
   GraduationCap,
   Home,
@@ -168,51 +166,8 @@ export default function EmploiDuTempsPage() {
   const [fin, setFin] = useState<string>("");
 
   return (
-    <main className="min-h-screen  text-white">
-      <section
-        className="grid  grid-cols-[204px_minmax(0,1fr)] overflow-hidden border border-white/10 bg-[#2b003d] shadow-[0_24px_70px_rgba(0,0,0,0.35)] max-[920px]:min-h-screen max-[920px]:w-full max-[920px]:grid-cols-[170px_minmax(0,1fr)] max-[700px]:grid-cols-1"
-        aria-label="Interface emploi du temps"
-      >
-        <aside className="hidden min-h-screen sm:flex flex-col border-r border-black/35 bg-[#2a003d] max-[700px]:border-r-0 max-[700px]:border-b max-[700px]:border-black/35" aria-label="Navigation principale">
-          <div className="flex min-h-20 items-center gap-2.75 border-b border-black/30 px-4 py-3 max-[700px]:min-h-0">
-            <div className="grid h-15.5 w-13.5 shrink-0 place-items-center overflow-hidden">
-              <Image
-                src="/images/retard-clock.png"
-                alt=" gestion des retards"
-                width={54}
-                height={54}
-                className="h-11.5 w-11.5 object-contain"
-                priority
-              />
-            </div>
-            <div className="grid gap-px font-bold leading-[1.08] text-white">
-              <h1 className="text-3xs font-semibold">Espace administrateur</h1>
-            </div>
-          </div>
-
-          <span className="px-2 pb-2 pt-3 text-[12px] leading-none text-white/70">Menu principal</span>
-
-          <nav className="grid gap-3 px-2.5 py-3 max-[700px]:grid-cols-3 max-[460px]:grid-cols-1" aria-label="Menu principal">
-            {navItems.map((item) => {
-              const Icon = item.icon;
-
-              return (
-                <a
-                  key={item.label}
-                  className={`flex min-h-10.5 items-center gap-3.5 rounded px-2.5 text-[13px] font-bold text-white no-underline transition-colors hover:bg-white/10 max-[700px]:min-h-12 max-[700px]:justify-center max-[700px]:p-2 max-[700px]:text-center max-[460px]:justify-start ${
-                    item.active ? "bg-[rgba(175,152,196,0.72)]" : ""
-                  }`}
-                  href="#"
-                >
-                  <Icon size={21} strokeWidth={1.8} aria-hidden="true" />
-                  <span>{item.label}</span>
-                </a>
-              );
-            })}
-          </nav>
-        </aside>
-
-        <section className="min-w-0 pt-6 sm:pt-0 bg-[#310048] ">
+    <main className="min-h-screen text-white bg-[#310048]">
+      <section className="min-w-0 pt-6 sm:pt-0">
           <header className="flex h-22 items-center justify-between border-b border-black/30 px-4.5 pl-4 max-[700px]:h-19">
             <div className="min-w-0 items-center">
               <h1 className="m-0 text-[25px] font-extrabold leading-none tracking-normal text-white max-[700px]:text-[21px]">
@@ -273,7 +228,6 @@ export default function EmploiDuTempsPage() {
             </div>
           </section>
         </section>
-      </section>
     </main>
   );
 }
