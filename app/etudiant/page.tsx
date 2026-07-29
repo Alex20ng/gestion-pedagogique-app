@@ -27,7 +27,7 @@ export  default function MenuEtudiantPage () {
                 </div>
                 <div className="flex flex-col gap-6 order-2 lg:order-1 md:order-1">
                     <Link href="/etudiant/cours" className="w-full h-fit bg-black/70 rounded-xl text-white text-xl p-5">Cours</Link>
-                    <Link href="" className="w-full h-fit bg-black/70 rounded-xl text-white text-xl p-5">Scanner code QR</Link>
+                    <Link href="/etudiant/scanner" className="w-full h-fit bg-black/70 rounded-xl text-white text-xl p-5">Scanner code QR</Link>
                 </div>
             </div>
         </div>
