@@ -21,7 +21,7 @@ export const LoginForm = ({action}: {action: any}) => {
 
         // TODO: remplacer par l'appel au nouveau backend, puis rediriger
         // selon le rôle renvoyé (etudiant / enseignant)
-        router.push("/etudiant/scanner");
+        router.push("/classe");
     }
 
     return (
