@@ -38,8 +38,6 @@ export default function SideBar(){
                 </div>
             </div>
 
-            <span className="px-2 pb-2 pt-3 text-[12px] leading-none text-white/70">Menu principal</span>
-
             <nav className="grid gap-3 px-2.5 py-3 max-[700px]:grid-cols-3 max-[460px]:grid-cols-1" aria-label="Menu principal">
                 {navItems.map((item) => {
                     const Icon = item.icon;

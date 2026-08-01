@@ -6,6 +6,7 @@ import {
   Clock3,
   GraduationCap,
   Home,
+  Loader2,
   Save,
 } from "lucide-react";
 import {  
@@ -164,6 +165,7 @@ function SelectField({ label, options, required = false }: SelectFieldProps) {
 export default function EmploiDuTempsPage() {
   const [debut, setDebut] = useState<string>("");
   const [fin, setFin] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   return (
     <main className="min-h-screen text-white bg-[#310048]">
@@ -220,9 +222,24 @@ export default function EmploiDuTempsPage() {
                 className="inline-flex h-9 w-full items-center justify-center gap-1.5 border-0 bg-[#061ed6] text-[12px] font-extrabold text-white hover:bg-[#0a26f0] sm:w-auto sm:min-w-31.75"
                 type="submit"
                 form="emploi-du-temps-form"
+                onClick={() => setIsLoading(!isLoading)}
               >
-                <Save size={15} strokeWidth={2} aria-hidden="true" />
-                Enregistrer
+                {
+                  isLoading
+                  ? (
+                      <>
+                        <span><Loader2 className="animate-spin"/></span>
+                        <p>Enregistrement...</p>
+                      </>
+                    )
+                  : (
+                      <>
+                        <Save size={15} strokeWidth={2} aria-hidden="true" />
+                        <p>Enregistrement</p>
+                      </>
+                    )
+                }
+                
               </Button>
 
             </div>
