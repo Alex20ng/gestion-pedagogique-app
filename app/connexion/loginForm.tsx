@@ -3,9 +3,9 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Eye, EyeOff } from "lucide-react";
-import toast from "react-hot-toast";
-import Link from "next/link";
 
+import Link from "next/link";
+import { toast } from "sonner";
 export const LoginForm = ({action}: {action: any}) => {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
@@ -13,7 +13,7 @@ export const LoginForm = ({action}: {action: any}) => {
     const router = useRouter();
 
     async function handleSubmit(formData: FormData){
-        // --- Logique Supabase désactivée temporairement (remplacement du backend en cours) ---
+        //  Logique Supabase désactivée temporairement 
         // const result = await action(formData);
         // if(result?.error){
         //     toast.error("Email ou mot de passe incorrect.")
