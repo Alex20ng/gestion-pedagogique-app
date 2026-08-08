@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ArrowLeftIcon } from "lucide-react";
+import { scanQr } from "./action";
 
 // npm install html5-qrcode
 export default function ScannerPage() {
@@ -12,6 +13,7 @@ export default function ScannerPage() {
   const [status, setStatus] = useState<"idle" | "scanning" | "success" | "error">("idle");
   const [message, setMessage] = useState("Place le QR Code de la salle dans le cadre.");
   const html5QrCodeRef = useRef<any>(null);
+  const scanningRef = useRef(false);
 
   // Détecte desktop vs mobile pour bloquer le scan sur PC
   useEffect(() => {
@@ -40,10 +42,28 @@ export default function ScannerPage() {
           { facingMode: "environment" },
           { fps: 10, qrbox: { width: 240, height: 240 } },
           async (decodedText: string) => {
-            await html5QrCode.stop();
-            setStatus("success");
-            setMessage("Présence enregistrée ✓");
-            // TODO: appeler le nouveau backend pour enregistrer decodedText + l'horodatage
+
+            try {
+              if (scanningRef.current) return;
+              scanningRef.current = true;
+
+              await html5QrCode.stop();
+
+              const result = await scanQr(decodedText);
+
+              if (result.success) {
+                setStatus("success");
+                setMessage("Présence enregistrée ✓");
+              } else {
+                setStatus("error");
+                setMessage(result.message);
+                scanningRef.current = false;
+              }
+            } catch {
+              setStatus("error");
+              setMessage("Une erreur est survenue.");
+              scanningRef.current = false;
+            }
           },
           () => {}
         );
@@ -57,7 +77,7 @@ export default function ScannerPage() {
 
     return () => {
       isMounted = false;
-      html5QrCodeRef.current?.stop().catch(() => {});
+      html5QrCodeRef.current?.stop().then(() => html5QrCodeRef.current?.clear()).catch(() => {});
     };
   }, [isDesktop]);
 

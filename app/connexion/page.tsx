@@ -1,4 +1,4 @@
-import { LoginForm } from "./loginForm";
+import { LoginForm } from "@/components/ui/loginForm";
 import { login } from "./actions";
 import Image from "next/image";
 

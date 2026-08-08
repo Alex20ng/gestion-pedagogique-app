@@ -14,7 +14,7 @@ import { cn } from "@/lib/utils";
 const navItems = [
   { label: "Accueil", icon: Home, ref: "/admin"},
   { label: "Emploi du temps", icon: CalendarDays, ref: "/admin/emploi-du-temps"},
-  { label: "Classe", icon: GraduationCap, ref: "/admin/classes"},
+  { label: "Classes", icon: GraduationCap, ref: "/admin/classes"},
 ];
 
 export default function SideBar(){
@@ -25,11 +25,11 @@ export default function SideBar(){
             <div className="flex min-h-20 items-center gap-2.75 border-b border-black/30 px-4 py-3 max-[700px]:min-h-0">
                 <div className="grid h-15.5 w-13.5 shrink-0 place-items-center overflow-hidden">
                     <Image
-                    src="/images/retard-clock.png"
+                    src="/images/learning_etudiant.png"
                     alt=" gestion des retards"
-                    width={54}
-                    height={54}
-                    className="h-11.5 w-11.5 object-contain"
+                    width={64}
+                    height={64}
+                    className="w-14 aspect-square object-contain"
                     priority
                     />
                 </div>

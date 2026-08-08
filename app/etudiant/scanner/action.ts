@@ -1,3 +1,5 @@
+"use server";
+
 import { createClient } from "@/lib/supabase/server";
 
 type ScanQrResult =
@@ -22,7 +24,7 @@ export async function scanQr(token: string): Promise<ScanQrResult> {
   if (!token || typeof token !== "string") {
     return {
       success: false,
-      error_code: "TOKEN INVALIDE",
+      error_code: "TOKEN_INVALIDE",
       message: "Token manquant ou invalide.",
     };
   }

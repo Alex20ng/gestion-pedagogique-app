@@ -1,29 +1,60 @@
 "use client"
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { Eye, EyeOff } from "lucide-react";
-
+import { Eye, EyeOff, Loader2 } from "lucide-react";
+import { useFormStatus } from "react-dom";
 import Link from "next/link";
 import { toast } from "sonner";
+
+
+function SubmitButton() {
+    const { pending } = useFormStatus();
+
+    return (
+        <button
+            type="submit"
+            disabled={pending}
+            className="mt-2 flex h-12 w-full items-center justify-center rounded-full bg-[#0D0710] font-semibold text-white transition hover:bg-[#160B1A] disabled:cursor-not-allowed disabled:opacity-70 lg:bg-black/70 lg:hover:bg-black/60"
+        >
+            {pending ? (
+                <>
+                    <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                    Connexion...
+                </>
+            ) : (
+                "Se connecter"
+            )}
+        </button>
+    );
+}
+
 export const LoginForm = ({action}: {action: any}) => {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [isVisible, setIsVisible] = useState<boolean>(false);
-    const router = useRouter();
 
-    async function handleSubmit(formData: FormData){
-        //  Logique Supabase désactivée temporairement 
-        // const result = await action(formData);
-        // if(result?.error){
-        //     toast.error("Email ou mot de passe incorrect.")
-        // }
 
-        // TODO: remplacer par l'appel au nouveau backend, puis rediriger
-        // selon le rôle renvoyé (etudiant / enseignant)
+    async function handleSubmit(formData: FormData){ 
+        const email = formData.get("email")?.toString().trim();
+        const password = formData.get("password")?.toString().trim();
+
+        if (!email) {
+            toast.error("Veuillez saisir votre adresse e-mail.");
+            return;
+        }
+
+        if (!password) {
+            toast.error("Veuillez saisir votre mot de passe.");
+            return;
+        }
+
+        const result = await action(formData);
+        if(result?.error){
+            toast.error("Email ou mot de passe incorrect.")
+            return
+        }
+
         toast.success("Connexion réussie")
-        router.push("/admin");
-
     }
 
     return (
@@ -64,14 +95,9 @@ export const LoginForm = ({action}: {action: any}) => {
                 </div>
             </div>
 
-            <button
-                type="submit"
-                className="mt-2 h-12 w-full rounded-full bg-[#0D0710] font-semibold text-white transition hover:bg-[#160B1A] active:scale-[0.98] lg:bg-black/70 lg:hover:bg-black/60"
-            >
-                Se connecter
-            </button>
+            <SubmitButton/>
 
-            <div className="flex items-center justify-between text-xs text-white/70">
+            <div className="flex items-center justify-between text-3xs text-white/70">
                 <Link href="">Pas de compte ?</Link>
                 <Link href=""> </Link>
             </div>
