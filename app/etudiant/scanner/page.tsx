@@ -4,16 +4,16 @@ import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ArrowLeftIcon } from "lucide-react";
 import { scanQr } from "./action";
+import { toast } from "sonner";
 
-// npm install html5-qrcode
 export default function ScannerPage() {
   const route = useRouter();
   const scannerRegionId = "qr-reader";
   const [isDesktop, setIsDesktop] = useState<boolean | null>(null);
   const [status, setStatus] = useState<"idle" | "scanning" | "success" | "error">("idle");
-  const [message, setMessage] = useState("Place le QR Code de la salle dans le cadre.");
   const html5QrCodeRef = useRef<any>(null);
   const scanningRef = useRef(false);
+  const scannerStateEnumRef = useRef<typeof import("html5-qrcode").Html5QrcodeScannerState | null>(null);
 
   // Détecte desktop vs mobile pour bloquer le scan sur PC
   useEffect(() => {
@@ -25,51 +25,73 @@ export default function ScannerPage() {
   }, []);
 
   useEffect(() => {
-    if (isDesktop !== false) return; // n'active la caméra que sur mobile (< 1024px)
+    if (isDesktop !== false) return;
 
     let isMounted = true;
 
     async function startScanner() {
-      const { Html5Qrcode } = await import("html5-qrcode");
+      const { Html5Qrcode, Html5QrcodeScannerState } = await import("html5-qrcode");
+      scannerStateEnumRef.current = Html5QrcodeScannerState;
+
       if (!isMounted) return;
 
       const html5QrCode = new Html5Qrcode(scannerRegionId);
       html5QrCodeRef.current = html5QrCode;
       setStatus("scanning");
 
+      async function safeStop() {
+        try {
+          const state = html5QrCode.getState();
+          if (
+            state === Html5QrcodeScannerState.SCANNING ||
+            state === Html5QrcodeScannerState.PAUSED
+          ) {
+            await html5QrCode.stop();
+          }
+        } catch {}
+      }
+
       try {
         await html5QrCode.start(
           { facingMode: "environment" },
           { fps: 10, qrbox: { width: 240, height: 240 } },
           async (decodedText: string) => {
+            if (scanningRef.current) return;
+            scanningRef.current = true;
+
+            await safeStop();
 
             try {
-              if (scanningRef.current) return;
-              scanningRef.current = true;
-
-              await html5QrCode.stop();
-
               const result = await scanQr(decodedText);
+
+              if (!isMounted) return;
 
               if (result.success) {
                 setStatus("success");
-                setMessage("Présence enregistrée ✓");
+                toast.success("Présence enregistrée");
               } else {
                 setStatus("error");
-                setMessage(result.message);
                 scanningRef.current = false;
+                toast.error(result.message);
               }
             } catch {
+              if (!isMounted) return;
               setStatus("error");
-              setMessage("Une erreur est survenue.");
               scanningRef.current = false;
+              toast.error("Une erreur est survenue.");
             }
           },
           () => {}
         );
+
+        if (!isMounted) {
+          await safeStop();
+          html5QrCodeRef.current?.clear().catch(() => {});
+        }
       } catch (err) {
+        if (!isMounted) return;
         setStatus("error");
-        setMessage("Impossible d'accéder à la caméra. Vérifie les autorisations.");
+        toast.error("Impossible d'accéder à la caméra. Vérifie les autorisations.");
       }
     }
 
@@ -77,12 +99,27 @@ export default function ScannerPage() {
 
     return () => {
       isMounted = false;
-      html5QrCodeRef.current?.stop().then(() => html5QrCodeRef.current?.clear()).catch(() => {});
+
+      const instance = html5QrCodeRef.current;
+      const StateEnum = scannerStateEnumRef.current;
+      if (!instance || !StateEnum) return;
+
+      try {
+        const state = instance.getState();
+        if (state === StateEnum.SCANNING || state === StateEnum.PAUSED) {
+          instance
+            .stop()
+            .then(() => instance.clear())
+            .catch(() => {});
+        } else {
+          instance.clear().catch(() => {});
+        }
+      } catch {}
     };
   }, [isDesktop]);
 
   return (
-    <div className="min-h-dvh flex flex-col p-6 bg-[#610b893f]">
+    <div className="min-h-dvh flex flex-col p-6 bg-[#2a003d]">
       <div className="mb-auto flex items-center justify-between">
         <button type="button" onClick={() => route.back()} aria-label="Retour">
           <ArrowLeftIcon width={28} height={28} />
@@ -106,14 +143,6 @@ export default function ScannerPage() {
               id={scannerRegionId}
               className="aspect-square w-full max-w-sm overflow-hidden rounded-xl border-2 border-white/30 bg-black/70"
             />
-            <p
-              className={`text-center text-sm font-medium ${
-                status === "success" ? "text-white" : status === "error" ? "text-red-300" : "text-white/80"
-              }`}
-              role="status"
-            >
-              {message}
-            </p>
           </>
         )}
       </div>

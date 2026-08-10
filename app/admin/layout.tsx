@@ -1,3 +1,4 @@
+import BottomBar from "@/components/ui/bottomBar";
 import SideBar from "@/components/ui/sideBar";
 
 
@@ -12,6 +13,7 @@ export default function AdminLayout({children}: {children:React.ReactNode}){
 
             {/* Mobile */}
             <div className="sm:hidden">
+                <BottomBar/>
                 {children}
             </div>
         </>

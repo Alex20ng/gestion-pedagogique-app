@@ -65,7 +65,7 @@ export const LoginForm = ({action}: {action: any}) => {
                     type="email"
                     id="email"
                     name="email"
-                    placeholder="alexng@exemple.com"
+                    placeholder="nom@exemple.com"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     className="h-12 w-full rounded-xl border border-[#DA2A2A] bg-[#D9D9D980] px-3 text-white outline-none placeholder:text-white/40 lg:border-transparent lg:bg-black/70"

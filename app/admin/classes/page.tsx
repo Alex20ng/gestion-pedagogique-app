@@ -312,7 +312,7 @@ export default function ClassePage() {
                   Prévisualisation
                 </p>
                 <h2 className="m-0 truncate text-[18px] font-extrabold tracking-tight text-white sm:text-[20px]">
-                  Emploi du temps — {selectedClasse.parcoursLibelle} — {selectedClasse.classe.libelle}
+                  {selectedClasse.parcoursLibelle} — {selectedClasse.classe.libelle}
                 </h2>
               </div>
               <button

@@ -40,7 +40,7 @@ export async function scanQr(token: string): Promise<ScanQrResult> {
     return {
       success: false,
       error_code: "RPC_ERROR",
-      message: "Une erreur technique est survenue lors du scan.",
+      message: `Une erreur technique est survenue lors du scan. ${error.message}`,
     };
   }
 

@@ -81,7 +81,7 @@ export async function createScheduler(idEnseignant: string, idCour: string, idCl
         console.log(`"Echec: ${error.message}`);
         return {
           success: false,
-          message: `Echec de l'ajout de l'emploi du temps: ${error.message}`
+          message: "Echec de l'ajout de l'emploi du temps"
         }
       }
 

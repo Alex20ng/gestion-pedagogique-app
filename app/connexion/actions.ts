@@ -21,7 +21,7 @@ export  async function login(formData: FormData){
     const { data: roles } = await supabase.rpc("get_user_roles");
 
     if (roles.includes("etudiant")) {
-        redirect("/etudiant/scanner");
+        redirect("/etudiant");
     }
 
     if (roles.includes("enseignant")) {

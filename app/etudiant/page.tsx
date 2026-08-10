@@ -4,7 +4,7 @@ import Image from "next/image"
 
 export  default function MenuEtudiantPage () {
     return (
-        <div className="min-h-dvh overflow-hidden flex flex-col p-6 bg-[#610b893f]">
+        <div className="min-h-dvh overflow-hidden flex flex-col p-6 bg-[#2a003d]">
             <div className="mb-auto lg:flex md:flex">
                 <div className="hidden lg:block md:block relative w-28 max-w-xs aspect-square mr-auto">
                     <Image 
@@ -26,7 +26,6 @@ export  default function MenuEtudiantPage () {
                     />
                 </div>
                 <div className="flex flex-col gap-6 order-2 lg:order-1 md:order-1">
-                    <Link href="/etudiant/cours" className="w-full h-fit bg-black/70 rounded-xl text-white text-xl p-5">Cours</Link>
                     <Link href="/etudiant/scanner" className="w-full h-fit bg-black/70 rounded-xl text-white text-xl p-5">Scanner code QR</Link>
                 </div>
             </div>

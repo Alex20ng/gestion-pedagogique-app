@@ -4,7 +4,7 @@ import Image from "next/image";
 
 export default function ConnexionPage() {
     return (
-        <main className="relative min-h-dvh overflow-hidden bg-[#610B894A] text-white lg:flex">
+        <main className="relative min-h-dvh overflow-hidden bg-[#2a003d] text-white lg:flex">
             {/* Décor — visible uniquement sur mobile */}
             <div className="pointer-events-none absolute -left-16 -top-16 h-72 w-72 rounded-full bg-black/60 lg:hidden" />
             <div className="pointer-events-none absolute -bottom-16 -right-10 h-40 w-40 rounded-full bg-black/50 lg:hidden" />
