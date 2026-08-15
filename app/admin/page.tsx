@@ -246,11 +246,13 @@ export default function HomePage() {
                       >
                           <div className="w-xl">
                             <div className="flex gap-2 items-center">
-                              <h2 className="m-0 text-xl font-extrabold leading-none tracking-normal text-white sm:text-[17px]">
+                              <h2 className="m-0 text-[13px] sm:text-xl font-extrabold leading-none tracking-normal text-white sm:text-[17px]">
                                 {retard.cours.libelle}
                               </h2>
                               <div className="bg-purple-900 h-2 aspect-square rounded-full"/>
-                              {retard.classe.libelle}
+                              <h2 className="m-0 text-xs sm:text-xl font-extrabold leading-none tracking-normal text-white sm:text-[17px]">
+                                {retard.classe.libelle}
+                              </h2>
                             </div>
                               <div className="mt-2.25 flex items-center gap-2">
                                   <p className="text-xs font-medium leading-none text-white">
@@ -261,7 +263,7 @@ export default function HomePage() {
                               </div>
 
                           </div>
-                          <span className="justify-self-end text-xs font-medium leading-none text-white sm:text-[13px]">
+                          <span className="justify-self-end text-2xs font-medium leading-none text-white sm:text-[13px]">
                           {formatDuration(retard.duree_minutes)}
                           </span>
                       </div>
