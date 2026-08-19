@@ -22,7 +22,7 @@ import {
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { Enseignant, getClasses, getCours, getEnseignants, getSalles, Infos, createScheduler } from "./actions";
+import { getEmploiTempsData, createScheduler, EmploiTempsData } from "./actions";
 import { toast } from "sonner";
 
 const dayOptions: Option[] = ["LUNDI", "MARDI", "MERCREDI", "JEUDI", "VENDREDI", "SAMEDI"].map(
@@ -44,6 +44,13 @@ type SelectFieldProps = {
   className?: string;
 };
 
+const EMPTY_EMPLOI_TEMPS_DATA: EmploiTempsData = {
+  classes: [],
+  salles: [],
+  cours: [],
+  parcours: [],
+  enseignant: [],
+};
 
 function toStringValue(value: string | null): string {
   return value ?? "";
@@ -241,11 +248,7 @@ export default function EmploiDuTempsPage() {
   const [debut, setDebut] = useState<string>("");
   const [fin, setFin] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [enseignants, setEnseignants] = useState<Enseignant[]>([]);
-  const [salles, setSalles] = useState<Infos[]>([]);
-  const [classes, setClasses] = useState<Infos[]>([]);
-  const [cours, setCours] = useState<Infos[]>([]);
-
+  const [emploiTempsData, setEmploiTempsData] = useState<EmploiTempsData>(EMPTY_EMPLOI_TEMPS_DATA);
 
   const [enseignant, setEnseignant] = useState("");
   const [parcours, setParcours] = useState("");
@@ -257,25 +260,12 @@ export default function EmploiDuTempsPage() {
   useEffect(() => {
     async function fetchInformations() {
       setIsLoadingData(true);
-      try{
-        const [
-          enseignantsData,
-          classesData,
-          sallesData,
-          coursData,
-        ] = await Promise.all([
-          getEnseignants(),
-          getClasses(),
-          getSalles(),
-          getCours(),
-        ]);
+      try {
+        const data = await getEmploiTempsData();
 
-        setEnseignants(enseignantsData ?? []);
-        setClasses(classesData ?? []);
-        setSalles(sallesData ?? []);
-        setCours(coursData ?? []);
-      } catch (error) {
-        console.error("Erreur lors du chargement des données :", error);
+        setEmploiTempsData(data ?? EMPTY_EMPLOI_TEMPS_DATA);
+      } catch (error){
+          console.error("Erreur lors du chargement des données :", error);
 
         toast.error(
           "Impossible de charger les informations du formulaire."
@@ -288,19 +278,23 @@ export default function EmploiDuTempsPage() {
     fetchInformations();
   }, []);
 
-  const optionsEnseignant: Option[] = enseignants.map((e) => ({
+  const optionsEnseignant: Option[] = emploiTempsData.enseignant.map((e) => ({
     id: String(e.id),
     label: `${e.nom} ${e.prenom}`,
   }));
-  const optionsSalles: Option[] = salles.map((e) => ({
+  const optionsSalles: Option[] = emploiTempsData.salles.map((e) => ({
     id: String(e.id),
     label: e.libelle,
   }));
-  const optionsClasses: Option[] = classes.map((e) => ({
+  const optionsClasses: Option[] = emploiTempsData.classes.map((e) => ({
     id: String(e.id),
     label: e.libelle,
   }));
-  const optionsCours: Option[] = cours.map((e) => ({
+  const optionsCours: Option[] = emploiTempsData.cours.map((e) => ({
+    id: String(e.id),
+    label: e.libelle,
+  }));
+  const optionsParcours: Option[] = emploiTempsData.parcours.map((e) => ({
     id: String(e.id),
     label: e.libelle,
   }));

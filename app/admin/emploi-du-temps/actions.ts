@@ -23,46 +23,23 @@ export type EmploiTemps =
     message: string;
   }
 
-export async function getEnseignants(): Promise<Enseignant[]> {
+export type EmploiTempsData = {
+  classes: Infos[];
+  salles: Infos[];
+  cours: Infos[];
+  parcours: Infos[];
+  enseignant: Enseignant[];
+};
+
+export async function getEmploiTempsData(): Promise<EmploiTempsData> {
   const supabase = await createClient();
 
-  const { data, error } = await supabase.rpc("get_enseignants");
+  const { data, error } = await supabase.rpc("get_emploi_temps_data");
 
-  if (error) throw error;
+  if (error) throw error.message;
 
-  return data;
+  return data as EmploiTempsData;
 }
-
-export async function getClasses(): Promise<Infos[]> {
-  const supabase = await createClient();
-
-  const { data, error } = await supabase.rpc("get_classes");
-
-  if (error) throw error;
-
-  return data;
-}
-
-export async function getCours(): Promise<Infos[]> {
-  const supabase = await createClient();
-
-  const { data, error } = await supabase.rpc("get_cours");
-
-  if (error) throw error;
-
-  return data;
-}
-
-export async function getSalles(): Promise<Infos[]> {
-  const supabase = await createClient();
-
-  const { data, error } = await supabase.rpc("get_salles");
-
-  if (error) throw error;
-
-  return data;
-}
-
 
 export async function createScheduler(idEnseignant: string, idCour: string, idClasse: string, idSalle: string, jour: string, heureDebut: string, heureFin: string): Promise<EmploiTemps>{
     const supabase = await createClient();
