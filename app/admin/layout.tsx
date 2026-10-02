@@ -5,17 +5,17 @@ import SideBar from "@/components/ui/sideBar";
 export default function AdminLayout({children}: {children:React.ReactNode}){
     return (
         <>
-            {/* Desktop */}
-            <div className="hidden sm:flex min-h-screen">
-                <SideBar />
-                <main className="flex-1">{children}</main>
+            <div className="flex min-h-screen">
+                <div className="hidden sm:flex">
+                    <SideBar />
+                </div>
+
+                <div className="min-w-0 flex-1 pb-24 sm:pb-0">
+                    {children}
+                </div>
             </div>
 
-            {/* Mobile */}
-            <div className="sm:hidden">
-                <BottomBar/>
-                {children}
-            </div>
+            <BottomBar />
         </>
     )
 }

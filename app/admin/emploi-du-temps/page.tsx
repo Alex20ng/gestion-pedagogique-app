@@ -74,32 +74,32 @@ type TimePickerProps = {
 };
 
 function TimePicker({ label, required = false, value, onChange }: TimePickerProps) {
-  const [internalValue, setInternalValue] = useState(value ?? "");
   const [open, setOpen] = useState(false);
 
-  const current = value ?? internalValue;
+  const current = value ?? "";
   const [hour, minute] = current ? current.split(":") : ["", ""];
 
   function setTime(nextHour: string, nextMinute: string) {
-    const next = `${nextHour}:${nextMinute}`;
-    setInternalValue(next);
-    onChange?.(next);
+    onChange?.(`${nextHour}:${nextMinute}`);
   }
 
   return (
-    <label className="grid min-w-0 gap-2 text-white">
-      <span className="text-xs font-extrabold leading-none tracking-normal">
+    <div className="grid min-w-0 gap-2 text-white">
+      <span className="text-3xs font-semibold leading-none tracking-normal">
         {label}
         {required && <span className="ml-0.5 text-[#ff6b38]">*</span>}
       </span>
 
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger
+          aria-label={label}
           className="flex w-full py-3.5 min-w-0 items-center gap-2.5 rounded-[13px] bg-[rgba(199,126,229,0.78)] px-3 text-left outline-none focus:ring-2 focus:ring-white/60"
         >
           <Clock3 className="h-5 w-5 shrink-0 text-white/85" aria-hidden="true" />
-          <span className="text-[13px] font-medium tracking-normal text-white">
-            {current || "--:--"}
+          <span
+            className={`text-[13px] font-medium tracking-normal ${current ? "text-white" : "text-white/60"}`}
+          >
+            {current || "hh:mm"}
           </span>
         </PopoverTrigger>
 
@@ -142,7 +142,7 @@ function TimePicker({ label, required = false, value, onChange }: TimePickerProp
           </div>
         </PopoverContent>
       </Popover>
-    </label>
+    </div>
   );
 }
 
@@ -158,7 +158,7 @@ function SelectField({
   const selectedLabel = options.find((option) => option.id === value)?.label;
 
   return (
-    <label className="grid min-w-0 gap-2 text-white">
+    <div className="grid min-w-0 gap-2 text-white">
       <span className="text-3xs font-semibold leading-none tracking-normal">
         {label}
         {required && <span className="ml-0.5 text-[#ff6b38]">*</span>}
@@ -173,19 +173,19 @@ function SelectField({
         >
           <SelectValue placeholder={placeholder}>{selectedLabel}</SelectValue>
         </SelectTrigger>
-        <SelectContent className="border-white/10 bg-[#3a0055] text-white">
+        <SelectContent className="max-sm:max-w-[90vw] border-white/10 bg-[#3a0055] text-white">
           {options.map((option) => (
             <SelectItem
               key={option.id}
               value={option.id}
-              className="text-[13px] focus:bg-[rgba(199,126,229,0.35)] focus:text-white"
+              className="text-[13px] focus:bg-[rgba(199,126,229,0.35)] focus:text-white [&>span]:shrink [&>span]:whitespace-normal"
             >
               {option.label}
             </SelectItem>
           ))}
         </SelectContent>
       </Select>
-    </label>
+    </div>
   );
 }
 
@@ -317,8 +317,18 @@ export default function EmploiDuTempsPage() {
 
     if (isLoading) return;
 
-    if (!enseignant || !classe || !cour || !jour || !salle || !debut || !fin) {
-      toast.error("Veuillez remplir tous les champs");
+    const missing: string[] = [];
+
+    if (!enseignant) missing.push("l'enseignant");
+    if (!classe) missing.push("la classe");
+    if (!cour) missing.push("le cours");
+    if (!jour) missing.push("le jour");
+    if (!salle) missing.push("la salle");
+    if (!debut) missing.push("l'heure de début");
+    if (!fin) missing.push("l'heure de fin");
+
+    if (missing.length > 0) {
+      toast.error(`Veuillez renseigner ${missing.length > 1 ? "les champs" : "le champ"} suivant${missing.length > 1 ? "s" : ""} : ${missing.join(", ")}`);
       return;
     }
 
