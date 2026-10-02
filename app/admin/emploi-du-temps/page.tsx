@@ -22,6 +22,7 @@ import {
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { getEmploiTempsData, createScheduler, EmploiTempsData } from "./actions";
 import { toast } from "sonner";
 
@@ -54,6 +55,12 @@ const EMPTY_EMPLOI_TEMPS_DATA: EmploiTempsData = {
 
 function toStringValue(value: string | null): string {
   return value ?? "";
+}
+
+// "09:05" -> 545, pour comparer deux heures de début/fin.
+function toMinutes(time: string): number {
+  const [hours, minutes] = time.split(":").map(Number);
+  return (hours || 0) * 60 + (minutes || 0);
 }
 
 const HOURS = Array.from({ length: 24 }, (_, i) => i.toString().padStart(2, "0"));
@@ -243,6 +250,7 @@ function Skeleton (){
 }
 
 export default function EmploiDuTempsPage() {
+  const router = useRouter();
   const [isLoadingData, setIsLoadingData] = useState<boolean>(false);
 
   const [debut, setDebut] = useState<string>("");
@@ -251,7 +259,6 @@ export default function EmploiDuTempsPage() {
   const [emploiTempsData, setEmploiTempsData] = useState<EmploiTempsData>(EMPTY_EMPLOI_TEMPS_DATA);
 
   const [enseignant, setEnseignant] = useState("");
-  const [parcours, setParcours] = useState("");
   const [classe, setClasse] = useState("");
   const [cour, setCour] = useState("");
   const [salle, setSalle] = useState("");
@@ -278,6 +285,16 @@ export default function EmploiDuTempsPage() {
     fetchInformations();
   }, []);
 
+  const handleCancel = () => {
+    setJour("");
+    setSalle("");
+    setClasse("");
+    setCour("");
+    setDebut("");
+    setFin("");
+    setEnseignant("");
+  }
+
   const optionsEnseignant: Option[] = emploiTempsData.enseignant.map((e) => ({
     id: String(e.id),
     label: `${e.nom} ${e.prenom}`,
@@ -294,28 +311,31 @@ export default function EmploiDuTempsPage() {
     id: String(e.id),
     label: e.libelle,
   }));
-  const optionsParcours: Option[] = emploiTempsData.parcours.map((e) => ({
-    id: String(e.id),
-    label: e.libelle,
-  }));
 
   const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setIsLoading(true);
 
-    if (!salle || !enseignant || !cour || !jour || !classe){
+    if (isLoading) return;
+
+    if (!enseignant || !classe || !cour || !jour || !salle || !debut || !fin) {
       toast.error("Veuillez remplir tous les champs");
-      setIsLoading(false);
       return;
     }
 
+    if (toMinutes(fin) <= toMinutes(debut)) {
+      toast.error("L'heure de fin doit être postérieure à l'heure de début");
+      return;
+    }
+
+    setIsLoading(true);
+
     try {
       const { success, message } = await createScheduler(
-        enseignant, 
-        cour,     
-        classe,     
-        salle,      
-        jour, 
+        enseignant,
+        cour,
+        classe,
+        salle,
+        jour,
         debut,
         fin
       );
@@ -326,6 +346,11 @@ export default function EmploiDuTempsPage() {
       }
 
       toast.success(message);
+      handleCancel();
+      router.refresh();
+    } catch (error) {
+      console.error("Erreur lors de l'enregistrement :", error);
+      toast.error("Une erreur inattendue est survenue. Veuillez réessayer.");
     } finally {
       setIsLoading(false);
     }
@@ -412,11 +437,10 @@ export default function EmploiDuTempsPage() {
               />
 
             </div>
-          </form>
-
-          <div className="flex justify-end gap-7 pr-13.75 pt-6.25 max-[700px]:gap-3 max-[700px]:pr-0 max-[460px]:flex-col-reverse max-[460px]:items-stretch">
+            <div className="flex justify-end gap-7 pr-13.75 pt-6.25 max-[700px]:gap-3 max-[700px]:pr-0 max-[460px]:flex-col-reverse max-[460px]:items-stretch">
             <Button
               type="button"
+              onClick={handleCancel}
               className="h-9 w-full border-0 bg-[rgba(203,164,218,0.86)] text-[12px] font-extrabold text-white hover:bg-[rgba(203,164,218,1)] sm:w-auto sm:min-w-26.75"
             >
               Annuler
@@ -443,6 +467,8 @@ export default function EmploiDuTempsPage() {
               )}
             </Button>
           </div>
+          </form>
+
         </section>
       </section>
     </main>
